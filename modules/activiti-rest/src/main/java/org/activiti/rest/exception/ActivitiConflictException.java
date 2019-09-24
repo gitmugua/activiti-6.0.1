@@ -9,9 +9,4 @@ public class ActivitiConflictException extends ActivitiException {
   public ActivitiConflictException(String message) {
     super(message);
   }
-  
-  public ActivitiConflictException(String message, Throwable cause) {
-	super(message, cause);
-  }
-  
 }

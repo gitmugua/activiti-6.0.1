@@ -84,14 +84,14 @@ public class EventSubscriptionManager {
 
   protected void insertMessageEvent(MessageEventDefinition messageEventDefinition, StartEvent startEvent, ProcessDefinitionEntity processDefinition, BpmnModel bpmnModel) {
     CommandContext commandContext = Context.getCommandContext();
-    Message message = null;
     if (bpmnModel.containsMessageId(messageEventDefinition.getMessageRef())) {
-      message = bpmnModel.getMessage(messageEventDefinition.getMessageRef());
+      Message message = bpmnModel.getMessage(messageEventDefinition.getMessageRef());
+      messageEventDefinition.setMessageRef(message.getName());
     }
 
     // look for subscriptions for the same name in db:
     List<EventSubscriptionEntity> subscriptionsForSameMessageName = commandContext.getEventSubscriptionEntityManager()
-        .findEventSubscriptionsByName(MessageEventHandler.EVENT_HANDLER_TYPE, message.getName(), processDefinition.getTenantId());
+        .findEventSubscriptionsByName(MessageEventHandler.EVENT_HANDLER_TYPE, messageEventDefinition.getMessageRef(), processDefinition.getTenantId());
 
 
     for (EventSubscriptionEntity eventSubscriptionEntity : subscriptionsForSameMessageName) {
@@ -104,7 +104,7 @@ public class EventSubscriptionManager {
     }
 
     MessageEventSubscriptionEntity newSubscription = commandContext.getEventSubscriptionEntityManager().createMessageEventSubscription();
-    newSubscription.setEventName(message.getName());
+    newSubscription.setEventName(messageEventDefinition.getMessageRef());
     newSubscription.setActivityId(startEvent.getId());
     newSubscription.setConfiguration(processDefinition.getId());
     newSubscription.setProcessDefinitionId(processDefinition.getId());

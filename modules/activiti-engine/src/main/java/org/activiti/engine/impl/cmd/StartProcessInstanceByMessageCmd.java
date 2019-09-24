@@ -61,13 +61,13 @@ public class StartProcessInstanceByMessageCmd implements Command<ProcessInstance
     }
 
     MessageEventSubscriptionEntity messageEventSubscription = commandContext.getEventSubscriptionEntityManager().findMessageStartEventSubscriptionByName(messageName, tenantId);
+
     if (messageEventSubscription == null) {
       throw new ActivitiObjectNotFoundException("Cannot start process instance by message: no subscription to message with name '" + messageName + "' found.", MessageEventSubscriptionEntity.class);
     }
 
     String processDefinitionId = messageEventSubscription.getConfiguration();
-    String messageActivityId = messageEventSubscription.getActivityId();
-    if (processDefinitionId == null || messageActivityId == null) {
+    if (processDefinitionId == null) {
       throw new ActivitiException("Cannot start process instance by message: subscription to message with name '" + messageName + "' is not a message start event.");
     }
 
@@ -79,7 +79,7 @@ public class StartProcessInstanceByMessageCmd implements Command<ProcessInstance
     }
 
     ProcessInstanceHelper processInstanceHelper = commandContext.getProcessEngineConfiguration().getProcessInstanceHelper();
-    ProcessInstance processInstance = processInstanceHelper.createAndStartProcessInstanceByMessage(processDefinition, messageName, messageActivityId, processVariables, transientVariables);
+    ProcessInstance processInstance = processInstanceHelper.createAndStartProcessInstanceByMessage(processDefinition, messageName, processVariables, transientVariables);
 
     return processInstance;
   }

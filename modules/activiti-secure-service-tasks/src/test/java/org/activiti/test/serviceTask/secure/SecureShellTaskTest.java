@@ -28,7 +28,7 @@ public class SecureShellTaskTest extends SecureServiceTaskBaseTest {
     @Test
     public void testClassWhiteListingNotAllowed() {
         if (osType == OsType.WINDOWS) {
-            deployProcessDefinition("ShellTaskTest.testShellWindows.bpmn20.xml");
+            deployProcessDefinition("ShellTaskTest.testEchoShellWindows.bpmn20.xml");
         } else if (osType == OsType.LINUX) {
             deployProcessDefinition("ShellTaskTest.testEchoShellLinux.bpmn20.xml");
         } else if (osType == OsType.MAC) {

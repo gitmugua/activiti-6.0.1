@@ -9,10 +9,8 @@
 
 		<serviceTask id="shellCommandTask" activiti:type="shell">
 			<extensionElements>
-				<activiti:field name="command" stringValue="cmd" />
-				<activiti:field name="arg1" stringValue="/c" />
-				<activiti:field name="arg2" stringValue="dir" />
-				<activiti:field name="arg3" stringValue="." />
+				<activiti:field name="command" stringValue="dir" />
+				<activiti:field name="arg1" stringValue="." />
 				<activiti:field name="outputVariable"  stringValue="resultVar" />
 			</extensionElements>
 		</serviceTask>

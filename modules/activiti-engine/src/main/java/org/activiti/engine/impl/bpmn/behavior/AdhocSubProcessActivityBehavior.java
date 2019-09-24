@@ -55,7 +55,7 @@ public class AdhocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
   }
 
   protected Map<String, Object> processDataObjects(Collection<ValuedDataObject> dataObjects) {
-    Map<String, Object> variablesMap = new HashMap<>();
+    Map<String, Object> variablesMap = new HashMap<String, Object>();
     // convert data objects to process variables
     if (dataObjects != null) {
       for (ValuedDataObject dataObject : dataObjects) {

@@ -22,7 +22,7 @@
         <label class="control-label"><i class="glyphicon glyphicon-calendar"></i> {{field.name}}</label>
         <span class="marker" ng-if="field.required">*</span>
         <span class="control-label" ng-if="field.acceptedFormat">({{field.acceptedFormat}})</span>
-        <input id="{{activitiFieldIdPrefix + field.id}}" name="{{field.id}}" type="text" class="form-control" placeholder="{{field.placeholder}}" ng-model="field.value" ng-change="onFieldValueChange(field)"  bs-datepicker  restrict-input template="{{appResourceRoot}}views/templates/date-picker-template.html" data-container="body" data-date-format="d-M-yyyy" trigger="focus" autoclose="true" ng-required="field.required">
+        <input id="{{activitiFieldIdPrefix + field.id}}" name="{{field.id}}" type="text" class="form-control" placeholder="{{field.placeholder}}" ng-model="field.value" ng-change="onFieldValueChange(field)" bs-datepicker restrict-input template="{{appResourceRoot}}views/templates/date-picker-template.html" data-container="body" data-date-format="d-M-yyyy" trigger="focus" autoclose="true" ng-required="field.required">
     </div>
 
     <div ng-switch-when="boolean" class="form-group" ng-show="field.isVisible" ng-class="{'has-error': field.required && isEmpty(field)}">
@@ -105,8 +105,8 @@
         <span class="marker" ng-if="field.required">*</span>
         <ul class="simple-list" ng-show="model.uploads[field.id].length > 0">
             <li ng-repeat="content in model.uploads[field.id]">
-            
-            	 <document-preview content="content" editable="field.params.documentsEditable" read-only="false"></document-preview>
+                <i class="icon icon-{{content.simpleType}}"></i>
+                {{content.name}}
                 <div class="actions">
                     <a ng-click="removeContent(content, field)"><i class="icon icon-remove"></i></a>
                 </div>
@@ -153,7 +153,7 @@
         <label class="control-label">{{field.name}}</label>
         <span ng-if="!field.value || field.value.length == 0" translate="FORM.MESSAGE.EMPTY"></span>
         <ul class="simple-list selectable content-list">
-            <li ng-repeat="content in model.uploads[field.id]" title="{{content.name}}">
+            <li ng-repeat="content in field.value" title="{{content.name}}">
                 <document-preview content="content" editable="field.params.documentsEditable" read-only="true"></document-preview>
             </li>
         </ul>

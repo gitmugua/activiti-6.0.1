@@ -28,7 +28,6 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringAsyncExecutor;
-import org.activiti.spring.SpringJobManager;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +53,7 @@ public abstract class AbstractProcessEngineConfiguration {
   public SpringProcessEngineConfiguration processEngineConfigurationBean(Resource[] processDefinitions,
                                                                          DataSource dataSource,
                                                                          PlatformTransactionManager transactionManager,
-                                                                         SpringAsyncExecutor springAsyncExecutor,
-                                                                         SpringJobManager springJobManager)
+                                                                         SpringAsyncExecutor springAsyncExecutor)
         throws IOException {
 
     SpringProcessEngineConfiguration engine = new SpringProcessEngineConfiguration();
@@ -67,10 +65,6 @@ public abstract class AbstractProcessEngineConfiguration {
 
     if (null != springAsyncExecutor) {
       engine.setAsyncExecutor(springAsyncExecutor);
-    }
-
-    if (null != springJobManager) {
-        engine.setJobManager(springJobManager);
     }
 
     return engine;

@@ -82,7 +82,7 @@ public class ProcessInstanceHelper {
         processInstanceName, initialFlowElement, process, variables, transientVariables, startProcessInstance);
   }
 
-  public ProcessInstance createAndStartProcessInstanceByMessage(ProcessDefinition processDefinition, String messageName, String messageActivityId,
+  public ProcessInstance createAndStartProcessInstanceByMessage(ProcessDefinition processDefinition, String messageName,
       Map<String, Object> variables, Map<String, Object> transientVariables) {
 
     CommandContext commandContext = Context.getCommandContext();
@@ -113,11 +113,17 @@ public class ProcessInstanceHelper {
     }
 
     FlowElement initialFlowElement = null;
-    FlowElement flowElement = process.getFlowElement(messageActivityId);
-    if(flowElement instanceof StartEvent){
-      StartEvent startEvent = (StartEvent) flowElement;
-      if(startEvent.getEventDefinitions().get(0) instanceof MessageEventDefinition){
-        initialFlowElement = flowElement;
+    for (FlowElement flowElement : process.getFlowElements()) {
+      if (flowElement instanceof StartEvent) {
+        StartEvent startEvent = (StartEvent) flowElement;
+        if (CollectionUtil.isNotEmpty(startEvent.getEventDefinitions()) && startEvent.getEventDefinitions().get(0) instanceof MessageEventDefinition) {
+
+          MessageEventDefinition messageEventDefinition = (MessageEventDefinition) startEvent.getEventDefinitions().get(0);
+          if (messageEventDefinition.getMessageRef().equals(messageName)) {
+            initialFlowElement = flowElement;
+            break;
+          }
+        }
       }
     }
     if (initialFlowElement == null) {

@@ -15,7 +15,7 @@ public class EngineCreatedEventHandler extends AbstractDatabaseEventLoggerEventH
 
   @Override
   public EventLogEntryEntity generateEventLogEntry(CommandContext commandContext) {
-    Map<String, Object> data = new HashMap<>();
+    Map<String, Object> data = new HashMap<String, Object>();
     try {
       data.put("ip", InetAddress.getLocalHost().getHostAddress()); // Note
                                                                    // that

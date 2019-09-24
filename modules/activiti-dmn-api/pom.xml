@@ -11,16 +11,15 @@
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-root</artifactId>
 		<relativePath>../..</relativePath>
-		<version>6.0.1-SNAPSHOT</version>
+		<version>6.0.0</version>
 	</parent>
 
 	<properties>
 		<activiti.artifact>
 			org.activiti.dmn.api
 		</activiti.artifact>
-		<suppressionFile>${basedir}/../../dependency-check-suppression.xml</suppressionFile>
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
             <groupId>org.activiti</groupId>
@@ -107,6 +106,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
